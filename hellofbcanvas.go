@@ -6,7 +6,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("index.html")
+	t, _ := template.ParseFiles("public/index.html")
 	data := struct{User string}{"Diego"}
 	t.Execute(w, data)
 }
