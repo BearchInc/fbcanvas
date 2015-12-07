@@ -3,13 +3,22 @@
   <head>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="/components/wishlist-item.html">
+    <link rel="import" href="/bower_components/iron-list/iron-list.html">
   </head>
   <body>
     <wishlist-item name="Bola" price="R$ 5.00">
     	<span>TODO: Add picture</span>
     </wishlist-item>
 
+    <iron-list id="list">
+      <template>
+        <div>[[item.name]]</div>
+      </template>
+    </iron-list>
+
     <script>
+    document.getElementById('list').items = [{name:'Lisardinho'}, {name:'Diego'}];
+
     window.fbAsyncInit = function() {
     	FB.init({
     		appId      : '392015907497417',
