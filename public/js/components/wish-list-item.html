@@ -1,0 +1,124 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<dom-module id="wish-list-item">
+    <style>
+    div {
+        font-family: 'Patua One', cursive;
+        font-size: 24px;
+    }
+
+    .container {
+        margin: 10px;
+        padding: 10px;
+        padding-bottom: 0;
+        width: 494px;
+        border-radius: 2px;
+        border: 1px solid #d7d8de;
+        background-color: #ffffff;
+    }
+
+    .info {
+        vertical-align: middle;
+        height: 30px;
+    }
+
+    .name {
+    }
+
+    .price {
+        position: relative;
+        float: right;
+        color: #7889B5;
+        font-weight: bold;
+    }
+    
+    .separator {
+        position: relative;
+        margin: auto;
+        width: 95%;
+        height: 1px;
+        background-color: #DFDFDF;
+    }
+
+    .actions {
+        margin: 15px;
+        margin-top: 10px;
+        margin-bottom: 0;
+        text-align: center;
+        height: 40px;
+    }
+
+    .actions span {
+        height: 100%;
+        font-size: 24px;
+        color: #7E8492;
+    }
+
+    .add:hover, .remove:hover {
+        color: #7889B5;
+        cursor: pointer;
+    }
+
+    .add {
+        float: left;
+    }
+
+    .remove {
+        float: right;
+    }
+
+    .count {
+        display: inline-block;
+    }
+
+    img {
+        width: 85%;
+    }
+
+    .image {
+        text-align: center;
+    }
+    </style>
+
+    <template>
+        <div class="container">
+            <div class="info">
+                <span class="name">{{name}}</span>
+                <span class="price">{{price}}</span>
+            </div>
+
+            <div class="image">
+                <img src="{{image}}" />
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="actions">
+                <span class="add"><i class="fa fa-plus"></i></span>
+                <span class="count">0</span>
+                <span class="remove"><i class="fa fa-minus"></i></span>
+            </div>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+        is: "wish-list-item",
+        properties: {
+            name: {
+                type: String,
+                value: "An Item"
+            },
+            price: {
+                type: String,
+                value: "R$ 0.00"
+            },
+            image: String
+        },
+        ready: function() {
+            console.log('wishlist-item loaded!');
+        }
+    });
+    </script>
+</dom-module>

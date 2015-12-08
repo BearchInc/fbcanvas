@@ -1,81 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="/components/wishlist-item.html">
-    <link rel="import" href="/bower_components/iron-list/iron-list.html">
-  </head>
-  <body>
-    <wishlist-item name="Bola" price="R$ 5.00">
-    	<span>TODO: Add picture</span>
-    </wishlist-item>
+    <link href='https://fonts.googleapis.com/css?family=Bree+Serif|Patua+One|Crete+Round' rel='stylesheet' type='text/css'>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+    <link rel="import" href="/components/wish-list.html">
+    <style type="text/css">
+    body {
+        background-color: #e4e5e9;
+    }
+    </style>
+</head>
 
-    <iron-list id="list">
-      <template>
-        <div>[[item.name]]</div>
-      </template>
-    </iron-list>
+<body>
+    <template is="dom-bind">
+        <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
+        <wish-list items="[[data]]"></wish-list>
+    </template>
 
-    <script>
-    document.getElementById('list').items = [{name:'Lisardinho'}, {name:'Diego'}];
+    <div>
+        <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="lisardo.kist@gmail.com">
+            <input type="hidden" name="lc" value="CA">
+            <input type="hidden" name="item_name" value="BOLA">
+            <input type="hidden" name="item_name" value="CD WESLEY SAFADÃO">
+            <input type="hidden" name="button_subtype" value="services">
+            <input type="hidden" name="no_note" value="0">
+            <input type="hidden" name="cn" value="Add special instructions to the seller">
+            <input type="hidden" name="no_shipping" value="2">
+            <input type="hidden" name="amount" value="1.00">
+            <input type="hidden" name="currency_code" value="BRL">
+            <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+            <input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+        </form>
+    </div>
+</body>
+<script>
+</script>
 
-    window.fbAsyncInit = function() {
-    	FB.init({
-    		appId      : '392015907497417',
-    		xfbml      : true,
-    		version    : 'v2.5'
-    	});
-
-    	function onLogin(response) {
-    		if (response.status == 'connected') {
-    			FB.api('/me?fields=first_name', function(data) {
-    				var welcomeBlock = document.getElementById('fb-welcome');
-    				welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
-    			});
-    		}
-    	}
-
-    	FB.getLoginStatus(function(response) {
-	  // Check login status on load, and if the user is
-	  // already logged in, go directly to the welcome message.
-	  		if (response.status == 'connected') {
-	  			onLogin(response);
-	  		} else {
-	    		// Otherwise, show Login dialog first.
-	    		FB.login(function(response) {
-	    			onLogin(response);
-	    		}, {scope: 'user_friends, email'});
-			}
-		});
-    };
-
-    (function(d, s, id){
-    	var js, fjs = d.getElementsByTagName(s)[0];
-    	if (d.getElementById(id)) {return;}
-    	js = d.createElement(s); js.id = id;
-    	js.src = "//connect.facebook.net/en_US/sdk.js";
-    	fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-	<h1 id="fb-welcome">Hello there {{.User}}</h1>
-
-	<form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-	    <input type="hidden" name="cmd" value="_xclick">
-	    <input type="hidden" name="business" value="lisardo.kist@gmail.com">
-	    <input type="hidden" name="lc" value="CA">
-	    <input type="hidden" name="item_name" value="BOLA">
-	    <input type="hidden" name="item_name" value="CD WESLEY SAFADÃO">
-	    <input type="hidden" name="button_subtype" value="services">
-	    <input type="hidden" name="no_note" value="0">
-	    <input type="hidden" name="cn" value="Add special instructions to the seller">
-	    <input type="hidden" name="no_shipping" value="2">
-	    <input type="hidden" name="amount" value="1.00">
-	    <input type="hidden" name="currency_code" value="BRL">
-	    <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
-	    <input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
-	    <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-	</form>
-
-  </body>
 </html>

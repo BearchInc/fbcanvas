@@ -1,0 +1,41 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/components/wish-list-item.html">
+
+<dom-module id="wish-list">
+    <template>
+        <style>
+            ul {
+                list-style-type: none;
+            }
+
+            ul li {
+                float: left;
+            }
+        </style>
+
+        <div>
+            <ul>
+                <template is="dom-repeat" items="{{items}}">
+                    <li>
+                        <wish-list-item
+                            name="{{item.name}}"
+                            price="{{item.price}}"
+                            image="{{item.image}}"></wish-list-item>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+        is: "wish-list",
+        properties: {
+            items: Array
+        },
+        ready: function() {
+            console.log('wishlist loaded!');
+        }
+    });
+    </script>
+</dom-module>

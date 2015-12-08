@@ -14,6 +14,14 @@ handlers:
   - url: /bower_components
     static_dir: public/js/bower_components
 
+  - url: /(.*\.json)$
+    static_files: public/\1
+    upload: public/.*\.(json)$
+
+  - url: /$
+    static_files: public/index.html
+    upload: public/.*\.(html)$
+
   - url: /.*
     script: _go_app
     secure: always
