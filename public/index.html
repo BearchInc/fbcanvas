@@ -21,26 +21,25 @@
         <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
         <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
         <input type="button" value="Total: R$ {{total}}" />
+        <div>
+            <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="lisardo.kist@gmail.com">
+                <input type="hidden" name="lc" value="CA">
+                <input type="hidden" name="item_name" value="BOLA">
+                <input type="hidden" name="item_name" value="CD WESLEY SAFADÃO">
+                <input type="hidden" name="button_subtype" value="services">
+                <input type="hidden" name="no_note" value="0">
+                <input type="hidden" name="cn" value="Add special instructions to the seller">
+                <input type="hidden" name="no_shipping" value="2">
+                <input type="hidden" name="amount" value="{{total}}">
+                <input type="hidden" name="currency_code" value="BRL">
+                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+                <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+                <!-- <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1"> -->
+            </form>
+        </div>
     </template>
-
-    <div>
-        <form target="_blank" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="michael-facilitator@getunseen.com">
-            <input type="hidden" name="lc" value="CA">
-            <input type="hidden" name="item_name" value="BOLA">
-            <input type="hidden" name="item_name" value="CD WESLEY SAFADÃO">
-            <input type="hidden" name="button_subtype" value="services">
-            <input type="hidden" name="no_note" value="0">
-            <input type="hidden" name="cn" value="Add special instructions to the seller">
-            <input type="hidden" name="no_shipping" value="2">
-            <input type="hidden" name="amount" value="1.00">
-            <input type="hidden" name="currency_code" value="BRL">
-            <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
-            <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
-            <!-- <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1"> -->
-        </form>
-    </div>
 </body>
 <script>
 </script>
