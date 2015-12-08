@@ -20,7 +20,8 @@
                         <wish-list-item
                             name="{{item.name}}"
                             price="{{item.price}}"
-                            image="{{item.image}}"></wish-list-item>
+                            image="{{item.image}}"
+                            on-amount-change="updateTotalAmount"></wish-list-item>
                     </li>
                 </template>
             </ul>
@@ -31,8 +32,19 @@
     Polymer({
         is: "wish-list",
         properties: {
-            items: Array
+            items: Array,
+            totalAmount: {
+                type: Number,
+                value: 0,
+                notify: true
+            }
         },
+
+        updateTotalAmount: function(change) {
+            this.totalAmount -= change.detail.oldTotal;
+            this.totalAmount += change.detail.newTotal;
+        },
+
         ready: function() {
             console.log('wishlist loaded!');
         }

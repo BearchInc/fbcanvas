@@ -95,9 +95,9 @@
             <div class="separator"></div>
 
             <div class="actions">
-                <span class="add"><i class="fa fa-plus"></i></span>
-                <span class="count">0</span>
-                <span class="remove"><i class="fa fa-minus"></i></span>
+                <span class="add" on-click="add"><i class="fa fa-plus"></i></span>
+                <span class="count">{{amount}}</span>
+                <span class="remove" on-click="remove"><i class="fa fa-minus"></i></span>
             </div>
         </div>
     </template>
@@ -111,11 +111,40 @@
                 value: "An Item"
             },
             price: {
-                type: String,
-                value: "R$ 0.00"
+                type: Number,
+                value: 0.00
             },
-            image: String
+            amount: {
+                type: Number,
+                value: 0,
+                notify: true,
+                observer: 'onChange'
+            },
+            image: String,
+            onAmountChange: Function
         },
+
+        onChange: function(newValue, oldValue) {
+            if (!oldValue) oldValue = 0;
+            
+            this.fire('amount-change', {
+                newTotal: newValue * this.price,
+                oldTotal: oldValue * this.price
+            });
+        },
+
+        add: function() { this.amount++; },
+
+        remove: function() {
+            if (this.amount > 0) {
+                this.amount--;
+            }
+        },
+
+        total: function() {
+            return this.price * this.amount;
+        },
+
         ready: function() {
             console.log('wishlist-item loaded!');
         }

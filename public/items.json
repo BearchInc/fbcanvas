@@ -1,29 +1,29 @@
 [{
     "name": "Official Nike FootBall Ball",
-    "price": "R$ 30.00",
+    "price": 30.00,
     "image": "http://www.netshoes.com.br/Produtos/42/004-1911-042/004-1911-042_detalhe1.jpg"
 }, {
     "name": "Iron Man Action Figure",
-    "price": "R$ 100.00",
+    "price": 100.00,
     "image": "http://tvandfilmtoys.com/wp-content/uploads/2012/10/SB-Iron-Man-7.jpg"
 }, {
     "name": "Video Game PS4",
-    "price": "R$ 1900.00",
+    "price": 1900.00,
     "image": "https://s7test3.scene7.com/is/image/psmedia/ps4-system-imageblock-us-13jun14?$TwoColumn_Image$"
 }, {
     "name": "Video Game XBOX One",
-    "price": "R$ 1400.00",
+    "price": 1400.00,
     "image": "http://compass.xbox.com/assets/b6/03/b603a1e1-b916-43e0-95fc-df8419ce43e3.jpg?n=cabrey_xboxone_consoles_hero_960x450.jpg"
 }, {
     "name": "Pandemic Board Game",
-    "price": "R$ 190.00",
+    "price": 190.00,
     "image": "http://www.gateplay.com/images/products/detail/Pandemic_board_game.jpg"
 }, {
     "name": "Barbie Programmer",
-    "price": "R$ 190.00",
+    "price": 190.00,
     "image": "http://www.i-programmer.info/images/stories/News/2014/Nov/B/barbiedollcomp.jpg"
 }, {
     "name": "DJI Drone",
-    "price": "R$ 9000.00",
+    "price": 9000.00,
     "image": "http://blogs-images.forbes.com/frankbi/files/2015/04/Phantom-3-3-e1428477888137-1940x1089.jpg"
 }]

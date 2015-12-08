@@ -9,6 +9,8 @@
     <link rel="import" href="/components/wish-list.html">
     <style type="text/css">
     body {
+        height: 100%;
+        width: 100%;
         background-color: #e4e5e9;
     }
     </style>
@@ -17,7 +19,8 @@
 <body>
     <template is="dom-bind">
         <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
-        <wish-list items="[[data]]"></wish-list>
+        <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
+        <input type="button" value="Total: R$ {{total}}" />
     </template>
 
     <div>
@@ -34,8 +37,8 @@
             <input type="hidden" name="amount" value="1.00">
             <input type="hidden" name="currency_code" value="BRL">
             <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
-            <input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+            <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+            <!-- <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1"> -->
         </form>
     </div>
 </body>
