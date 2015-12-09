@@ -105,22 +105,13 @@ Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de present
 Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400 crian&ccedil;as sorriam neste dia!</p></div>
         </div>
         <template is="dom-bind">
-            <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
+            <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
             <div class="centered-element">
                 <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
             </div>
             <div class="donate">
-                <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                    <input type="submit" class="donateButton" value="Doar R$ {{total}}" />
-                    <input type="hidden" name="cmd" value="_donations">
-                    <input type="hidden" name="business" value="lisardo.kist@gmail.com">
-                    <input type="hidden" name="lc" value="BR">
-                    <input type="hidden" name="item_name" value="Festa das crian&ccedil;as">
-                    <input type="hidden" name="no_note" value="1">
-                    <input type="hidden" name="cn" value="Special instructions">
-                    <input type="hidden" name="no_shipping" value="1">
-                    <input type="hidden" name="amount" value="{{total}}">
-                    <input type="hidden" name="currency_code" value="BRL">
+                <form target="_blank" action="/paypal" method="post">
+                    <input type="submit" class="donateButton" value="Doar R$ {{total}}"/>
                 </form>
             </div>
         </template>

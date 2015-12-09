@@ -9,6 +9,7 @@ import (
 	"google.golang.org/appengine/log"
 	"golang.org/x/net/context"
 	"github.com/mjibson/goon"
+	"encoding/json"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -74,7 +75,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	w.Write([]byte(approveUrl))
+	http.Redirect(w, r, approveUrl, http.StatusFound)
 }
 
 type Item struct {
@@ -112,6 +113,17 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Successfully payed!"))
 }
 
+func data(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+
+	productsBytes, err := json.Marshal(products)
+	if err != nil {
+		log.Errorf(c, "Couldn't execute payment: %+v", err)
+		return
+	}
+	w.Write(productsBytes)
+}
+
 func newPaypalClient(c context.Context) (*paypal.Client, error) {
 	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
 	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
@@ -132,6 +144,7 @@ func newPaypalClient(c context.Context) (*paypal.Client, error) {
 }
 
 func init() {
+	http.HandleFunc("/items", data)
 	http.HandleFunc("/paypal", donate)
 	http.HandleFunc("/paypal/success", successPaypal)
 	http.HandleFunc("/", handler)
