@@ -8,6 +8,7 @@ import (
 	"github.com/migore/paypal"
 	"google.golang.org/appengine/urlfetch"
 	"google.golang.org/appengine/log"
+	"golang.org/x/net/context"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -36,21 +37,12 @@ func paypalWebhook(w http.ResponseWriter, r *http.Request) {
 }
 
 func donate(w http.ResponseWriter, r *http.Request) {
-	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
-	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
-	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
-
 	c := appengine.NewContext(r)
-	client.Client = urlfetch.Client(c)
-
-	tokenResp, err := client.GetAccessToken()
+	client, err := newPaypalClient(c)
 
 	if err != nil {
-		log.Infof(c, "Couldn't get access token: %+v", err)
 		return
 	}
-
-	client.Token = tokenResp
 
 	payment := paypal.Payment{
 		Intent: "sale",
@@ -91,22 +83,12 @@ func donate(w http.ResponseWriter, r *http.Request) {
 func successPaypal(w http.ResponseWriter, r *http.Request) {
 	paymentID := r.URL.Query().Get("paymentId")
 	payerID := r.URL.Query().Get("PayerID")
-
-	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
-	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
-	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
-
 	c := appengine.NewContext(r)
-	client.Client = urlfetch.Client(c)
-
-	tokenResp, err := client.GetAccessToken()
+	client, err := newPaypalClient(c)
 
 	if err != nil {
-		log.Infof(c, "Couldn't create payment: %+v", err)
 		return
 	}
-
-	client.Token = tokenResp
 
 	_, err = client.ExecutePayment(paymentID, payerID, nil)
 
@@ -116,6 +98,26 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write([]byte("Success"))
+}
+
+func newPaypalClient(c context.Context) (*paypal.Client, error) {
+	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
+	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
+	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
+
+
+	client.Client = urlfetch.Client(c)
+
+	tokenResp, err := client.GetAccessToken()
+
+	if err != nil {
+		log.Infof(c, "Couldn't create access token: %+v", err)
+		return nil, err
+	}
+
+	client.Token = tokenResp
+
+	return client, nil
 }
 
 func init() {
