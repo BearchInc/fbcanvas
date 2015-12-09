@@ -9,20 +9,52 @@
     <link rel="import" href="/components/wish-list.html">
     <style type="text/css">
     .cover-image {
-        height: 200px;
+        height: 315px;
         background: url(/santa.jpg );
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
+
+    .profilePic {
+        height: 160px;
+        width: 160px;
+        background-color: #fff;
+        border: 4px solid #fff;
+        border-radius: 2px;
+    }
+
+    .profilePicThumb {
+        background: rgba(0, 0, 0, .3);
+        border-radius: 3px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .07);
+        display: block;
+        left: 23px;
+        margin-top: -130px;
+        padding: 1px;
+        position: absolute;
+        height: 168px;
+    }
+
+    .profile-name {
+        position: absolute;
+        margin-top: -40px;
+        margin-left: 210px;
+        text-shadow: 0 0 3px rgba(0,0,0,.8);
+        color: #ffffff;
+        font-size: 24px;
+        font-family: helvetica, arial, sans-serif;
+    }
     
     .cover-text {
-        height: 100px;
+        margin-top: 30px;
+        height: 130px;
         padding: 10px;
         background-color: white;
-        font-family: 'Patua One';
+        font-family: helvetica, arial, sans-serif;
         font-size: 14px;
-
+        text-align: justify;
+        text-justify: inter-word;
     }   
 
     .cover {
@@ -100,9 +132,21 @@
     <div class="main-container centered-element">
         <div class="centered-element cover">
             <div class="cover-image"></div>
-            <div class="cover-text"><p>E est&aacute; chegando mais um Natal, tempo de renova&ccedil;&atilde;o, esperan&ccedil;a, uni&atilde;o e SOLIDARIEDADE! Mais uma festa de Natal est&aacute; chegando tamb&eacute;m , e esse ano contemplaremos 400 crian&ccedil;as crian&ccedil;as do Bairro Humait&aacute;.<br />
-Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de presente, neste ano teremos lanches e atra&ccedil;&otilde;es para tornarmos um dia inesquec&iacute;vel para cada uma dessas crian&ccedil;as.<br />
-Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400 crian&ccedil;as sorriam neste dia!</p></div>
+            <a class="profilePicThumb">
+                <img class="profilePic img" alt="Juliana Ferrari Teixeira" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/1234887_10204563118536969_8719067516525264908_n.jpg?oh=dfb842c2796f52a795c17e04057a76a2&amp;oe=572062FB&amp;__gda__=1458158393_d88a9ae36c97fdfd3e740b7045cc56c7" />
+            </a>
+            <div class="profile-name">Juliana Ferrari Teixeira</div>
+            <div class="cover-text">
+                <p>
+                    E est&aacute; chegando mais um Natal, tempo de renova&ccedil;&atilde;o, esperan&ccedil;a, uni&atilde;o e SOLIDARIEDADE! Mais uma festa de Natal est&aacute; chegando tamb&eacute;m , e esse ano contemplaremos 400 crian&ccedil;as crian&ccedil;as do Bairro Humait&aacute;.
+                </p>
+                <p>
+                    Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de presente, neste ano teremos lanches e atra&ccedil;&otilde;es para tornarmos um dia inesquec&iacute;vel para cada uma dessas crian&ccedil;as.
+                </p>
+                <p>
+                    Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400 crian&ccedil;as sorriam neste dia!
+                </p>
+            </div>
         </div>
         <template is="dom-bind">
             <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
