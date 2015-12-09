@@ -20,8 +20,11 @@
         height: 100px;
         padding: 10px;
         background-color: white;
-    }
-    
+        font-family: 'Patua One';
+        font-size: 14px;
+
+    }   
+
     .cover {
         background-color: white;
         border: 1px solid #d7d8de;
@@ -97,7 +100,9 @@
     <div class="main-container centered-element">
         <div class="centered-element cover">
             <div class="cover-image"></div>
-            <div class="cover-text">Help us change the world...</div>
+            <div class="cover-text"><p>E est&aacute; chegando mais um Natal, tempo de renova&ccedil;&atilde;o, esperan&ccedil;a, uni&atilde;o e SOLIDARIEDADE! Mais uma festa de Natal est&aacute; chegando tamb&eacute;m , e esse ano contemplaremos 400 crian&ccedil;as crian&ccedil;as do Bairro Humait&aacute;.<br />
+Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de presente, neste ano teremos lanches e atra&ccedil;&otilde;es para tornarmos um dia inesquec&iacute;vel para cada uma dessas crian&ccedil;as.<br />
+Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400 crian&ccedil;as sorriam neste dia!</p></div>
         </div>
         <template is="dom-bind">
             <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
