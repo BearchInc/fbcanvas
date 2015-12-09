@@ -8,6 +8,7 @@ import (
 	"google.golang.org/appengine/urlfetch"
 	"google.golang.org/appengine/log"
 	"golang.org/x/net/context"
+	"encoding/json"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -33,11 +34,28 @@ func donate(w http.ResponseWriter, r *http.Request) {
 		},
 		Transactions: []paypal.Transaction{
 			paypal.Transaction{
+				ItemList: &paypal.ItemList{
+					Items: []paypal.Item{
+						paypal.Item{
+							Quantity: 3,
+							Name: "Boneco da Peppa",
+							Price: "10.10",
+							Currency: "BRL",
+							SKU: "1",
+						},
+						paypal.Item{
+							Quantity: 1,
+							Name: "Cachorro quente",
+							Price: "120.20",
+							Currency: "BRL",
+							SKU: "2",
+						},
+					},
+				},
 				Amount: &paypal.Amount{
 					Currency: "BRL",
-					Total: "12.23",
+					Total: "150.50",
 				},
-				Description: "Ajudando a Ju Ferrari!",
 			},
 		},
 	}
@@ -69,14 +87,18 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
 	paymentID := r.URL.Query().Get("paymentId")
 	payerID := r.URL.Query().Get("PayerID")
-	_, err = client.ExecutePayment(paymentID, payerID, nil)
+	epr, err := client.ExecutePayment(paymentID, payerID, nil)
+
+	bepr, err := json.Marshal(epr)
+
+	log.Infof(c, "Payment: %+v", string(bepr))
 
 	if err != nil {
 		log.Infof(c, "Couldn't execute payment: %+v", err)
 		return
 	}
 
-	w.Write([]byte("Success"))
+	w.Write([]byte("Successfully payed!"))
 }
 
 func newPaypalClient(c context.Context) (*paypal.Client, error) {
