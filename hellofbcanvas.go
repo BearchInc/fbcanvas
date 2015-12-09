@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"encoding/json"
 	"google.golang.org/appengine"
 	"github.com/migore/paypal"
 	"google.golang.org/appengine/urlfetch"
@@ -20,7 +19,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 	client, err := newPaypalClient(c)
 
 	if err != nil {
-		return
+		return // error was logged inside newPaypalClient function
 	}
 
 	payment := paypal.Payment{
@@ -42,6 +41,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
+
 	paymentResp, err := client.CreatePayment(payment);
 
 	if err != nil {
@@ -60,15 +60,15 @@ func donate(w http.ResponseWriter, r *http.Request) {
 }
 
 func successPaypal(w http.ResponseWriter, r *http.Request) {
-	paymentID := r.URL.Query().Get("paymentId")
-	payerID := r.URL.Query().Get("PayerID")
 	c := appengine.NewContext(r)
 	client, err := newPaypalClient(c)
 
 	if err != nil {
-		return
+		return // error was logged inside newPaypalClient function
 	}
 
+	paymentID := r.URL.Query().Get("paymentId")
+	payerID := r.URL.Query().Get("PayerID")
 	_, err = client.ExecutePayment(paymentID, payerID, nil)
 
 	if err != nil {
