@@ -18,6 +18,10 @@ handlers:
     static_files: public/\1
     upload: public/.*\.(json)$
 
+  - url: /(.*\.jpg)$
+    static_files: public/\1
+    upload: public/.*\.(jpg)$
+
   - url: /$
     static_files: public/index.html
     upload: public/.*\.(html)$

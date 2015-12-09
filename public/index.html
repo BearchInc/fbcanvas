@@ -8,6 +8,31 @@
     <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
     <link rel="import" href="/components/wish-list.html">
     <style type="text/css">
+    .cover-image {
+        height: 200px;
+        background: url( /santa.jpg );
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .cover-text {
+        height: 100px;
+        padding: 10px;
+        background-color: white;
+    }   
+
+    .cover {
+        background-color: white;
+        border: 1px solid #d7d8de;
+        max-width: 1010px;
+    }
+
+    .centered-element {
+        width: 100%;
+        position: relative;
+        margin: auto;
+    }
     .donateButton {
         -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
         -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
@@ -55,15 +80,27 @@
         body {
             height: 100%;
             width: 100%;
+            margin: 0;
             background-color: #e4e5e9;
         }
         </style>
     </head>
 
     <body>
+        <div class="centered-element cover">
+            <div class="cover-image"></div>
+            <div class="cover-text">Help us change the world...</div>
+        </div>
+        
+
         <template is="dom-bind">
+
             <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
-            <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
+
+            <div class="centered-element">
+                <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
+            </div>
+
             <div class="donate">
                 <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                     <input type="submit" class="donateButton" value="Doar R$ {{total}}"/>
