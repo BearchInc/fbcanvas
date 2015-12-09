@@ -10,100 +10,103 @@
     <style type="text/css">
     .cover-image {
         height: 200px;
-        background: url( /santa.jpg );
+        background: url(/santa.jpg );
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
-
+    
     .cover-text {
         height: 100px;
         padding: 10px;
         background-color: white;
-    }   
-
+    }
+    
     .cover {
         background-color: white;
         border: 1px solid #d7d8de;
         max-width: 1010px;
     }
 
+    .main-container {
+        max-width: 1050px;    
+    }
+    
     .centered-element {
         width: 100%;
         position: relative;
         margin: auto;
     }
+    
     .donateButton {
-        -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-        box-shadow:inset 0px 1px 0px 0px #fce2c1;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
-        background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
-        background-color:#ffc477;
-        -webkit-border-top-left-radius:20px;
-        -moz-border-radius-topleft:20px;
-        border-top-left-radius:20px;
-        -webkit-border-top-right-radius:20px;
-        -moz-border-radius-topright:20px;
-        border-top-right-radius:20px;
-        -webkit-border-bottom-right-radius:20px;
-        -moz-border-radius-bottomright:20px;
-        border-bottom-right-radius:20px;
-        -webkit-border-bottom-left-radius:20px;
-        -moz-border-radius-bottomleft:20px;
-        border-bottom-left-radius:20px;
-        text-indent:0;
-        border:1px solid #eeb44f;
-        display:inline-block;
-        color:#ffffff;
-        font-family:Arial;
-        font-size:15px;
-        font-weight:bold;
-        font-style:normal;
-        height:65px;
-        line-height:65px;
-        width:120px;
-        text-decoration:none;
-        text-align:center;
+        -moz-box-shadow: inset 0px 1px 0px 0px #fce2c1;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #fce2c1;
+        box-shadow: inset 0px 1px 0px 0px #fce2c1;
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25));
+        background: -moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+        background-color: #ffc477;
+        -webkit-border-top-left-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-right-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        border-bottom-left-radius: 20px;
+        text-indent: 0;
+        border: 1px solid #eeb44f;
+        display: inline-block;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        font-style: normal;
+        height: 65px;
+        line-height: 65px;
+        width: 120px;
+        text-decoration: none;
+        text-align: center;
         position: fixed;
-        top:1px;
-        left:1px;
-        text-shadow:1px 1px 0px #cc9f52;
+        top: 1px;
+        left: 1px;
+        text-shadow: 1px 1px 0px #cc9f52;
     }
+    
     .donateButton:hover {
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
-        background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
-        background-color:#fb9e25;
-        }
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            background-color: #e4e5e9;
-        }
-        </style>
-    </head>
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477));
+        background: -moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+        background-color: #fb9e25;
+    }
+    
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        background-color: #e4e5e9;
+    }
+    </style>
+</head>
 
-    <body>
+<body>
+    <div class="main-container centered-element">
         <div class="centered-element cover">
             <div class="cover-image"></div>
             <div class="cover-text">Help us change the world...</div>
         </div>
-        
-
         <template is="dom-bind">
-
             <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
-
             <div class="centered-element">
                 <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
             </div>
-
             <div class="donate">
                 <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                    <input type="submit" class="donateButton" value="Doar R$ {{total}}"/>
+                    <input type="submit" class="donateButton" value="Doar R$ {{total}}" />
                     <input type="hidden" name="cmd" value="_donations">
                     <input type="hidden" name="business" value="lisardo.kist@gmail.com">
                     <input type="hidden" name="lc" value="BR">
@@ -116,8 +119,9 @@
                 </form>
             </div>
         </template>
-    </body>
-    <script>
-    </script>
+    </div>
+</body>
+<script>
+</script>
 
-    </html>
+</html>
