@@ -41,6 +41,9 @@
         width:120px;
         text-decoration:none;
         text-align:center;
+        position: fixed;
+        top:1px;
+        left:1px;
         text-shadow:1px 1px 0px #cc9f52;
     }
     .donateButton:hover {
@@ -48,9 +51,6 @@
         background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
         filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
         background-color:#fb9e25;
-        }.donateButton:active {
-            position:relative;
-            top:1px;
         }
         body {
             height: 100%;
@@ -64,7 +64,7 @@
         <template is="dom-bind">
             <iron-ajax url="/items.json" last-response="{{data}}" auto></iron-ajax>
             <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
-            <div>
+            <div class="donate">
                 <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                     <input type="submit" class="donateButton" value="Doar R$ {{total}}"/>
                     <input type="hidden" name="cmd" value="_donations">

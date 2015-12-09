@@ -2,37 +2,34 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 <dom-module id="wish-list-item">
-    <style>
+<style>
     div {
         font-family: 'Patua One', cursive;
-        font-size: 24px;
+        font-size: 14px;
     }
 
     .container {
         margin: 10px;
         padding: 10px;
-        padding-bottom: 0;
-        width: 494px;
+        width: 300px;
         border-radius: 3px;
         border: 1px solid #d7d8de;
         background-color: #ffffff;
     }
-
+    
     .info {
         vertical-align: middle;
-        height: 30px;
+        height: 40px;
     }
-
+    
     .name {
     }
-
+    
     .price {
-        position: relative;
-        float: right;
         color: #7889B5;
         font-weight: bold;
     }
-    
+
     .separator {
         position: relative;
         margin: auto;
@@ -40,114 +37,144 @@
         height: 1px;
         background-color: #DFDFDF;
     }
-
+    
     .actions {
-        margin: 15px;
-        margin-top: 10px;
-        margin-bottom: 0;
+        padding: 10px;
+        padding-bottom: 0;
         text-align: center;
-        height: 40px;
+        height: 30px;
     }
-
+    
     .actions span {
         height: 100%;
-        font-size: 24px;
+        font-size: 20px;
         color: #7E8492;
     }
-
+    
     .add:hover, .remove:hover {
         color: #7889B5;
         cursor: pointer;
     }
-
+    
     .add {
         float: left;
     }
-
+    
     .remove {
         float: right;
     }
-
+    
     .count {
-        display: inline-block;
-    }
-
-    img {
-        width: 55%;
-    }
-
-    .image {
         text-align: center;
     }
-    </style>
+    
+    .responsive-container {
+        position: relative;
+        width: 100%;
+    }
 
-    <template>
-        <div class="container">
-            <div class="info">
-                <span class="name">{{name}}</span>
-                <span class="price">{{price}}</span>
-            </div>
+    .aspect-ratio {
+        padding-top: 100%;
+    }
+    
+    img {
+        vertical-align: middle;
+        width: 80%;
+    }
+    
+    .image-container {
+       position: absolute;
+       top: 0;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       text-align:center; /* Align center inline elements */
+    }
+    
+    .image-container:before {
+        content: ' ';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+    
+    .image-container img {
+        vertical-align: middle;
+        display: inline-block;
+    }
+</style>
 
-            <div class="image">
-                <img src="{{image}}" />
-            </div>
+<template>
+    <div class="container">
+        <div class="info">
+            <span class="name">{{name}}</span>
+            <span class="price">R$ {{price}}</span>
+        </div>
 
-            <div class="separator"></div>
+        <div class="responsive-container">
+            <div class="aspect-ratio"></div>
 
-            <div class="actions">
-                <span class="add" on-click="add"><i class="fa fa-plus"></i></span>
-                <span class="count">{{amount}}</span>
-                <span class="remove" on-click="remove"><i class="fa fa-minus"></i></span>
+            <div class="image-container">
+                <img src="{{image}}" alt="" />
             </div>
         </div>
-    </template>
 
-    <script>
-    Polymer({
-        is: "wish-list-item",
-        properties: {
-            name: {
-                type: String,
-                value: "An Item"
-            },
-            price: {
-                type: Number,
-                value: 0.00
-            },
-            amount: {
-                type: Number,
-                value: 0,
-                notify: true,
-                observer: 'onChange'
-            },
-            image: String,
-            onAmountChange: Function
+        <div class="separator"></div>
+
+        <div class="actions">
+            <span class="add" on-click="add"><i class="fa fa-plus"></i></span>
+            <span class="count">{{amount}}</span>
+            <span class="remove" on-click="remove"><i class="fa fa-minus"></i></span>
+        </div>
+    </div>
+</template>
+
+<script>
+Polymer({
+    is: "wish-list-item",
+    properties: {
+        name: {
+            type: String,
+            value: "An Item"
         },
-
-        onChange: function(newValue, oldValue) {
-            if (!oldValue) oldValue = 0;
-            
-            this.fire('amount-change', {
-                newTotal: newValue * this.price,
-                oldTotal: oldValue * this.price
-            });
+        price: {
+            type: Number,
+            value: 0.00
         },
-
-        add: function() { this.amount++; },
-
-        remove: function() {
-            if (this.amount > 0) {
-                this.amount--;
-            }
+        amount: {
+            type: Number,
+            value: 0,
+            notify: true,
+            observer: 'onChange'
         },
+        image: String,
+        onAmountChange: Function
+    },
 
-        total: function() {
-            return this.price * this.amount;
-        },
+    onChange: function(newValue, oldValue) {
+        if (!oldValue) oldValue = 0;
 
-        ready: function() {
-            console.log('wishlist-item loaded!');
+        this.fire('amount-change', {
+            newTotal: newValue * this.price,
+            oldTotal: oldValue * this.price,
+        });
+    },
+
+    add: function() { this.amount++; },
+
+    remove: function() {
+        if (this.amount > 0) {
+            this.amount--;
         }
-    });
-    </script>
+    },
+
+    total: function() {
+        return this.price * this.amount;
+    },
+
+    ready: function() {
+        console.log('wishlist-item loaded!');
+    }
+});
+</script>
 </dom-module>
