@@ -15,27 +15,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World")
 }
 
-func paypalWebhook(w http.ResponseWriter, r *http.Request) {
-	c := appengine.NewContext(r)
-
-	decoder := json.NewDecoder(r.Body)
-	var objmap map[string]*json.RawMessage
-	err := decoder.Decode(&objmap)
-	if err != nil {
-		log.Infof(c, "Error: %+v", err)
-		w.Write([]byte("Error!"))
-		return
-	}
-
-	log.Infof(c, "Map keys: %+v", objmap)
-
-	var resource json.RawMessage
-	err = json.Unmarshal(*objmap["resource"], &resource)
-
-	log.Infof(c, "resources: %+v", string(resource))
-	w.Write([]byte(string(resource)))
-}
-
 func donate(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	client, err := newPaypalClient(c)
@@ -121,7 +100,6 @@ func newPaypalClient(c context.Context) (*paypal.Client, error) {
 }
 
 func init() {
-	http.HandleFunc("/webhook", paypalWebhook)
 	http.HandleFunc("/paypal", donate)
 	http.HandleFunc("/paypal/success", successPaypal)
 	http.HandleFunc("/", handler)
