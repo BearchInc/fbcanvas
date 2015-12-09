@@ -57,11 +57,11 @@
     }
     
     .add {
-        float: left;
+        float: right;
     }
     
     .remove {
-        float: right;
+        float: left;
     }
     
     .count {
@@ -122,9 +122,9 @@
         <div class="separator"></div>
 
         <div class="actions">
-            <span class="add" on-click="add"><i class="fa fa-plus"></i></span>
-            <span class="count">{{amount}}</span>
             <span class="remove" on-click="remove"><i class="fa fa-minus"></i></span>
+            <span class="count">{{amount}}</span>
+            <span class="add" on-click="add"><i class="fa fa-plus"></i></span>
         </div>
     </div>
 </template>
