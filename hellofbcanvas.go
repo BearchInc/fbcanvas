@@ -8,7 +8,7 @@ import (
 	"google.golang.org/appengine/urlfetch"
 	"google.golang.org/appengine/log"
 	"golang.org/x/net/context"
-	"encoding/json"
+	"github.com/mjibson/goon"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -77,6 +77,11 @@ func donate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(approveUrl))
 }
 
+type Item struct {
+	Id string `datastore:"-" goon:"id"`
+	Quantity int
+}
+
 func successPaypal(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	client, err := newPaypalClient(c)
@@ -87,11 +92,17 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
 	paymentID := r.URL.Query().Get("paymentId")
 	payerID := r.URL.Query().Get("PayerID")
-	epr, err := client.ExecutePayment(paymentID, payerID, nil)
+	executePaymentResponse, err := client.ExecutePayment(paymentID, payerID, nil)
 
-	bepr, err := json.Marshal(epr)
+	g := goon.NewGoon(r)
+	for _, i := range executePaymentResponse.Transactions[0].ItemList.Items {
+		item := &Item{ Id: i.SKU }
+		_ = g.Get(item)
 
-	log.Infof(c, "Payment: %+v", string(bepr))
+		item.Quantity += i.Quantity
+
+		g.Put(item)
+	}
 
 	if err != nil {
 		log.Infof(c, "Couldn't execute payment: %+v", err)
@@ -105,7 +116,6 @@ func newPaypalClient(c context.Context) (*paypal.Client, error) {
 	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
 	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
 	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
-
 
 	client.Client = urlfetch.Client(c)
 
