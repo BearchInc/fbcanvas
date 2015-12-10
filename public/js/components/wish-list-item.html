@@ -108,6 +108,7 @@
 
 <template>
     <div class="container">
+        <input type="hidden" name="quantity-{{id}}" value="{{amount}}">
         <div class="info">
             <span class="name">{{name}}</span>
             <span class="price">R$ {{price}}</span>
@@ -148,6 +149,11 @@ Polymer({
             value: 0,
             notify: true,
             observer: 'onChange'
+        },
+        id: {
+            type: Number,
+            value: 0,
+            notify: true,
         },
         image: String,
         onAmountChange: Function

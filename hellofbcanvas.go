@@ -10,19 +10,81 @@ import (
 	"golang.org/x/net/context"
 	"github.com/mjibson/goon"
 	"encoding/json"
+	"strconv"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World")
 }
 
+type CartItem struct {
+	Product *Product
+	Quantity int
+}
+
+func (this CartItem) toPaypalItem() *paypal.Item {
+	return &paypal.Item{
+		Quantity: this.Quantity,
+		Name: this.Product.Name,
+		Price: this.Product.Price,
+		Currency: "BRL",
+		SKU: this.Product.Id,
+	}
+}
+
+type ShoppingCart struct {
+	Items []CartItem
+}
+
+func (this ShoppingCart) toPaypalItemList() []paypal.Item {
+	var items []paypal.Item
+	for _, item := range this.Items {
+		items = append(items, *item.toPaypalItem())
+	}
+	return items
+}
+
+func (this ShoppingCart) total() string {
+	total := float64(0)
+	for _, item := range this.Items {
+		//handle this error
+		price, _ := strconv.ParseFloat(item.Product.Price, 64)
+		total += price * float64(item.Quantity)
+	}
+
+	return strconv.FormatFloat(total, 'f', 2, 64)
+}
+
 func donate(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	c := appengine.NewContext(r)
 	client, err := newPaypalClient(c)
 
 	if err != nil {
 		return // error was logged inside newPaypalClient function
 	}
+
+	shoppingCart := []CartItem{}
+
+	for i := 0; i < len(products); i++ {
+		itemQuantity := r.FormValue(fmt.Sprintf("quantity-%d", i))
+		log.Infof(c, "Item %d quantity %s", i, itemQuantity)
+
+		//handle this error
+		integerQuantity, _ := strconv.Atoi(itemQuantity)
+		if integerQuantity > 0 {
+			cartItem := CartItem{
+				Quantity: integerQuantity,
+				Product: getProduct(strconv.Itoa(i)),
+			}
+			shoppingCart = append(shoppingCart, cartItem)
+		}
+	}
+
+	cart := ShoppingCart{shoppingCart}
+	total := cart.total()
+
+	log.Infof(c, "Total: $s", total)
 
 	payment := paypal.Payment{
 		Intent: "sale",
@@ -36,26 +98,11 @@ func donate(w http.ResponseWriter, r *http.Request) {
 		Transactions: []paypal.Transaction{
 			paypal.Transaction{
 				ItemList: &paypal.ItemList{
-					Items: []paypal.Item{
-						paypal.Item{
-							Quantity: 3,
-							Name: "Boneco da Peppa",
-							Price: "10.10",
-							Currency: "BRL",
-							SKU: "1",
-						},
-						paypal.Item{
-							Quantity: 1,
-							Name: "Cachorro quente",
-							Price: "120.20",
-							Currency: "BRL",
-							SKU: "2",
-						},
-					},
+					Items: cart.toPaypalItemList(),
 				},
 				Amount: &paypal.Amount{
 					Currency: "BRL",
-					Total: "150.50",
+					Total: total,
 				},
 			},
 		},
