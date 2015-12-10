@@ -46,3 +46,10 @@ update-web-experience:
 			"bank_txn_pending_url": "https://www.facebook.com/events/200508130284787/" \
 		} \
 	}'
+
+bearer-token:
+	curl https://api.paypal.com/v1/oauth2/token \
+     -H "Accept: application/json" \
+     -H "Accept-Language: en_US" \
+     -u "ATRub8NK5m1iZV1EFPcs2Ad_lcKx6A7yasQaRSj6wdjKEDPBpzZ1UZBUr4qQtxg45fG-zO8OlZ85fJx4:EF4fNq7M9l_VztubdFCLsTsUnqGAoSj12WTnGWuguyQKisAC2aneCVNuXDAusmwE5EjDit67YYTMev3z" \
+     -d "grant_type=client_credentials"
