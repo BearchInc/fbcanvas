@@ -93,7 +93,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 			PaymentMethod: "paypal",
 		},
 		RedirectURLs: &paypal.RedirectURLs{
-			ReturnURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/success",
+			ReturnURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com//paypal/success",
 			CancelURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/cancel",
 		},
 		Transactions: []paypal.Transaction{
