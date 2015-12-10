@@ -182,7 +182,7 @@ func thanks(w http.ResponseWriter, r *http.Request) {
         Amount: r.URL.Query().Get("v"),
     }
 
-    t, err := template.ParseFiles("public/thanks.html")
+    t, err := template.ParseFiles("templates/thanks.html")
     if err != nil {
         log.Infof(c, "Couldn't say thanks: %+v", err)
         return
