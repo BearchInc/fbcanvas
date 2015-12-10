@@ -1,34 +1,36 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"google.golang.org/appengine"
-	"github.com/migore/paypal"
-	"google.golang.org/appengine/urlfetch"
-	"google.golang.org/appengine/log"
-	"golang.org/x/net/context"
-	"github.com/mjibson/goon"
 	"encoding/json"
+	"fmt"
+	"github.com/migore/paypal"
+	"github.com/mjibson/goon"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
+	"google.golang.org/appengine/urlfetch"
+	"net/http"
+	"net/smtp"
 	"strconv"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World")
+	// Set up authentication information.
 }
 
 type CartItem struct {
-	Product *Product
+	Product  *Product
 	Quantity int
 }
 
 func (this CartItem) toPaypalItem() *paypal.Item {
 	return &paypal.Item{
 		Quantity: this.Quantity,
-		Name: this.Product.Name,
-		Price: this.Product.Price,
+		Name:     this.Product.Name,
+		Price:    this.Product.Price,
 		Currency: "BRL",
-		SKU: this.Product.Id,
+		SKU:      this.Product.Id,
 	}
 }
 
@@ -75,7 +77,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 		if integerQuantity > 0 {
 			cartItem := CartItem{
 				Quantity: integerQuantity,
-				Product: getProduct(strconv.Itoa(i)),
+				Product:  getProduct(strconv.Itoa(i)),
 			}
 			shoppingCart = append(shoppingCart, cartItem)
 		}
@@ -87,14 +89,14 @@ func donate(w http.ResponseWriter, r *http.Request) {
 	log.Infof(c, "Total: %s", total)
 
 	payment := paypal.Payment{
-		Intent: "sale",
+		Intent:              "sale",
 		ExperienceProfileID: "XP-3L6B-V2T3-RGFL-2JBZ",
-		Payer: &    paypal.Payer{
+		Payer: &paypal.Payer{
 			PaymentMethod: "paypal",
 		},
 		RedirectURLs: &paypal.RedirectURLs{
-			ReturnURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/paypal/success",
-			CancelURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/cancel",
+			ReturnURL: "https://fb-canvas-dot-staging-api-getunseen.appspot.com/paypal/success",
+			CancelURL: "https://fb-canvas-dot-staging-api-getunseen.appspot.com/cancel",
 		},
 		Transactions: []paypal.Transaction{
 			paypal.Transaction{
@@ -103,13 +105,13 @@ func donate(w http.ResponseWriter, r *http.Request) {
 				},
 				Amount: &paypal.Amount{
 					Currency: "BRL",
-					Total: total,
+					Total:    total,
 				},
 			},
 		},
 	}
 
-	paymentResp, err := client.CreatePayment(payment);
+	paymentResp, err := client.CreatePayment(payment)
 
 	if err != nil {
 		log.Infof(c, "Couldn't create payment: %+v", err)
@@ -127,7 +129,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 }
 
 type Item struct {
-	Id string `datastore:"-" goon:"id"`
+	Id       string `datastore:"-" goon:"id"`
 	Quantity int
 }
 
@@ -145,7 +147,7 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
 	g := goon.NewGoon(r)
 	for _, i := range executePaymentResponse.Transactions[0].ItemList.Items {
-		item := &Item{ Id: i.SKU }
+		item := &Item{Id: i.SKU}
 		_ = g.Get(item)
 
 		item.Quantity += i.Quantity
@@ -158,7 +160,35 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Successfully payed!"))
+	sendEmail(executePaymentResponse.Payer.PayerInfo.Email, c)
+
+    http.Redirect(w, r, "http://apps.facebook.com/bearchcanvas/?li", http.StatusFound)
+
+}
+
+func sendEmail(email string, c context.Context) {
+
+	auth := smtp.PlainAuth(
+		"",
+		"ju.ferrari.doar.com",
+		"ygorbruxel",
+		"smtp.gmail.com",
+	)
+	// Connect to the server, authenticate, set the sender and recipient,
+	// and send the email all in one step.
+	err := smtp.SendMail(
+		"smtp.gmail.com:587",
+		auth,
+		email,
+		[]string{email},
+		[]byte("This is the email body."),
+	)
+
+	if err != nil {
+		log.Infof(c, "Couldn't e-mail to %s: %+v", email, err)
+	} else {
+		log.Infof(c, "E-mail sent to %s", email)
+	}
 }
 
 func data(w http.ResponseWriter, r *http.Request) {

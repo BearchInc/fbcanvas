@@ -14,13 +14,17 @@ handlers:
   - url: /bower_components
     static_dir: public/js/bower_components
 
-  - url: /(.*\.json)$
-    static_files: public/\1
-    upload: public/.*\.(json)$
-
   - url: /(.*\.jpg)$
     static_files: public/\1
     upload: public/.*\.(jpg)$
+
+  - url: /(.*\.png)$
+    static_files: public/\1
+    upload: public/.*\.(png)$
+
+  - url: /thanks.html$
+    static_files: public/thanks.html
+    upload: public/.*\.(html)$
 
   - url: /$
     static_files: public/index.html
