@@ -11,7 +11,9 @@ import (
 	"google.golang.org/appengine/urlfetch"
 	"net/http"
 	"net/smtp"
-	"strconv"
+    "html/template"
+    "strconv"
+    "net/url"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -162,9 +164,33 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
 	sendEmail(executePaymentResponse.Payer.PayerInfo.Email, c)
 
-    http.Redirect(w, r, "http://apps.facebook.com/bearchcanvas/?li", http.StatusFound)
+    name := url.QueryEscape(executePaymentResponse.Payer.PayerInfo.FirstName)
+    amount := url.QueryEscape(executePaymentResponse.Transactions[0].Amount.Total)
+    http.Redirect(w, r, "http://apps.facebook.com/bearchcanvas/thanks?n="+name+"&v="+amount, http.StatusOK)
 
 }
+
+
+func thanks(w http.ResponseWriter, r *http.Request) {
+    c := appengine.NewContext(r)
+
+    p := struct {
+        Name string
+        Amount string
+    }{
+        Name: r.URL.Query().Get("n"),
+        Amount: r.URL.Query().Get("v"),
+    }
+
+    t, err := template.ParseFiles("public/thanks.html")
+    if err != nil {
+        log.Infof(c, "Couldn't say thanks: %+v", err)
+        return
+    } else {
+        t.Execute(w, p)
+    }
+}
+
 
 func sendEmail(email string, c context.Context) {
 
@@ -224,6 +250,7 @@ func newPaypalClient(c context.Context) (*paypal.Client, error) {
 func init() {
 	http.HandleFunc("/items", data)
 	http.HandleFunc("/paypal", donate)
+    http.HandleFunc("/thanks", thanks)
 	http.HandleFunc("/paypal/success", successPaypal)
 	http.HandleFunc("/", handler)
 }
