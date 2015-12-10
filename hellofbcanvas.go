@@ -88,6 +88,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 
 	payment := paypal.Payment{
 		Intent: "sale",
+		ExperienceProfileID: "XP-3L6B-V2T3-RGFL-2JBZ",
 		Payer: &    paypal.Payer{
 			PaymentMethod: "paypal",
 		},
