@@ -42,9 +42,10 @@
             }
         },
 
+
         updateTotalAmount: function(change) {
-            this.totalAmount -= change.detail.oldTotal;
-            this.totalAmount += change.detail.newTotal;
+            this.totalAmount = parseFloat((this.totalAmount - change.detail.oldTotal).toFixed(2));
+            this.totalAmount = parseFloat((this.totalAmount + change.detail.newTotal).toFixed(2));
         }
     });
     </script>

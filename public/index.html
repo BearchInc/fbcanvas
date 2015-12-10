@@ -155,7 +155,6 @@
         $(window).scroll(function() {
             $('.summary.card').addClass('fixed').removeClass('not-fixed');
             var scrollTop = $(document).scrollTop();
-            console.log(scrollTop)
             if (scrollTop < 430) {
                 $('.summary.card').removeClass('fixed').addClass('not-fixed');
             }
