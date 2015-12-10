@@ -20,6 +20,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "iron-list": "PolymerElements/iron-list#~1.1.6",
-    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1"
+    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
+    "numeral": "~1.5.3",
+    "jquery": "~2.1.4"
   }
 }

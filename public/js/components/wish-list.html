@@ -4,18 +4,16 @@
 <dom-module id="wish-list">
     <template>
         <style>
-
-            ul {
-                padding: 0;
-                text-align: center;
-                list-style-type: none;
-            }
-
-            ul li {
-                display: inline-block;
-            }
+        ul {
+            padding: 0;
+            text-align: center;
+            list-style-type: none;
+        }
+        
+        ul li {
+            display: inline-block;
+        }
         </style>
-
         <div>
             <ul>
                 <template is="dom-repeat" items="{{items}}">
@@ -31,10 +29,10 @@
             </ul>
         </div>
     </template>
-
     <script>
     Polymer({
         is: "wish-list",
+        
         properties: {
             items: Array,
             totalAmount: {
@@ -47,10 +45,6 @@
         updateTotalAmount: function(change) {
             this.totalAmount -= change.detail.oldTotal;
             this.totalAmount += change.detail.newTotal;
-        },
-
-        ready: function() {
-            console.log('wishlist loaded!');
         }
     });
     </script>
