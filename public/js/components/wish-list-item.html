@@ -162,8 +162,8 @@ Polymer({
         if (!oldValue) oldValue = 0;
 
         this.fire('amount-change', {
-            newTotal: newValue * this.price,
-            oldTotal: oldValue * this.price,
+            newTotal: parseFloat((newValue * this.price).toFixed(2)),
+            oldTotal: parseFloat((oldValue * this.price).toFixed(2)),
         });
     },
 
