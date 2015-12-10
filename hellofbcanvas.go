@@ -166,7 +166,7 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
     name := url.QueryEscape(executePaymentResponse.Payer.PayerInfo.FirstName)
     amount := url.QueryEscape(executePaymentResponse.Transactions[0].Amount.Total)
-    http.Redirect(w, r, "http://apps.facebook.com/bearchcanvas/thanks?n="+name+"&v="+amount, http.StatusOK)
+    http.Redirect(w, r, "http://apps.facebook.com/bearchcanvas/thanks?n="+name+"&v="+amount, 301)
 
 }
 
