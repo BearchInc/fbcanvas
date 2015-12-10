@@ -183,18 +183,18 @@
                 </p>
             </div>
         </div>
-        <template is="dom-bind">
-            <div class="centered-element card summary not-fixed">
-                <div class="summary-total">R$ {{total}}</div>
-                <form target="_blank" action="/paypal" method="post">
+        <form target="_blank" action="/paypal" method="post">
+            <template is="dom-bind">
+                <div class="centered-element card summary not-fixed">
+                    <div class="summary-total">R$ {{total}}</div>
                     <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay" />
-                </form>
-            </div>
-            <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
-            <div class="centered-element">
+                </div>
+                <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
+                <div class="centered-element">
                 <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
-            </div>
-        </template>
+                </div>
+            </template>
+        </form>
     </div>
 </body>
 <script>
