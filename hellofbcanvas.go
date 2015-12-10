@@ -66,7 +66,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 
 	shoppingCart := []CartItem{}
 
-	for i := 0; i < len(products); i++ {
+	for i := 1; i <= len(products); i++ {
 		itemQuantity := r.FormValue(fmt.Sprintf("quantity-%d", i))
 		log.Infof(c, "Item %d quantity %s", i, itemQuantity)
 
@@ -84,7 +84,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 	cart := ShoppingCart{shoppingCart}
 	total := cart.total()
 
-	log.Infof(c, "Total: $s", total)
+	log.Infof(c, "Total: %s", total)
 
 	payment := paypal.Payment{
 		Intent: "sale",
@@ -93,7 +93,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 			PaymentMethod: "paypal",
 		},
 		RedirectURLs: &paypal.RedirectURLs{
-			ReturnURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com//paypal/success",
+			ReturnURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/paypal/success",
 			CancelURL:"https://fb-canvas-dot-staging-api-getunseen.appspot.com/cancel",
 		},
 		Transactions: []paypal.Transaction{

@@ -26,7 +26,7 @@ var products = []Product{
 	Product{
 		Id: "18",
 		Name: "Docinhos e Bebidas para a Festa",
-		Price: "786.00 ",
+		Price: "786.00",
 		Image: "http://mlb-s1-p.mlstatic.com/brigadeiro-ou-beijinho-cento-22597-MLB20232317909_012015-F.jpg",
 	},
 	Product{
