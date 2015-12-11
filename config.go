@@ -15,7 +15,7 @@ var (
 
 func ProductionConfig() Config {
 	config := Config {
-		BaseURL: "https://apps.facebook.com/helpmehelp/",
+		BaseURL: "https://apps.facebook.com/helpmehelp",
 		PaypalClientId: "ATRub8NK5m1iZV1EFPcs2Ad_lcKx6A7yasQaRSj6wdjKEDPBpzZ1UZBUr4qQtxg45fG-zO8OlZ85fJx4",
 		PaypalSecret: "EF4fNq7M9l_VztubdFCLsTsUnqGAoSj12WTnGWuguyQKisAC2aneCVNuXDAusmwE5EjDit67YYTMev3z",
 		PaypalBase: paypal.APIBaseLive,
@@ -26,7 +26,7 @@ func ProductionConfig() Config {
 
 func StagingConfig() Config {
 	config := Config {
-		BaseURL: "https://apps.facebook.com/bearchcanvas/",
+		BaseURL: "https://apps.facebook.com/bearchcanvas",
 		PaypalClientId: "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze",
 		PaypalSecret: "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP",
 		PaypalBase: paypal.APIBaseSandBox,
