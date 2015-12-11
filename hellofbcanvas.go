@@ -10,7 +10,7 @@ import (
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/urlfetch"
 	"net/http"
-	"net/smtp"
+    "google.golang.org/appengine/mail"
     "html/template"
     "strconv"
     "net/url"
@@ -194,28 +194,17 @@ func thanks(w http.ResponseWriter, r *http.Request) {
 
 
 func sendEmail(email string, c context.Context) {
-
-	auth := smtp.PlainAuth(
-		"",
-		"ju.ferrari.doar",
-		"ygorbruxel",
-		"smtp.gmail.com",
-	)
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
-	err := smtp.SendMail(
-		"smtp.gmail.com:587",
-		auth,
-		"ju.ferrari.doar@gmail.com",
-		[]string{email},
-		[]byte("Content-Type: text/plain; charset=\"utf-8\"\r\nSubject: Agredecimento\r\nMuito obrigada, farás muitos rostinhos sorrirem!"),
-	)
-
-	if err != nil {
-		log.Infof(c, "Couldn't e-mail to %s: %+v", email, err)
-	} else {
-		log.Infof(c, "E-mail sent to %s", email)
-	}
+    msg := &mail.Message{
+        Sender:  "ju.ferrari.doar@gmail.com",
+        To:      []string{email},
+        Subject: "Agradecimento",
+        Body:    "Muito obrigada, farás muitos rostinhos sorrirem!",
+    }
+    if err := mail.Send(c, msg); err != nil {
+        log.Errorf(c, "Couldn't send email to %s: %v", email, err)
+    } else {
+        log.Infof(c, "Sent email to: %s", email, err)
+    }
 }
 
 func data(w http.ResponseWriter, r *http.Request) {
