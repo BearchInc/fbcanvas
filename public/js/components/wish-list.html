@@ -42,7 +42,6 @@
             }
         },
 
-
         updateTotalAmount: function(change) {
             this.totalAmount = parseFloat((this.totalAmount - change.detail.oldTotal).toFixed(2));
             this.totalAmount = parseFloat((this.totalAmount + change.detail.newTotal).toFixed(2)).toFixed(2);

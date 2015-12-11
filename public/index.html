@@ -85,28 +85,32 @@
         background-color: #fb9e25;
     }
     
-    .fixed {
+    .summary-fixed {
+        top: -60px;
+        left: 0;
+        z-index: 1;
         padding: 10px;
         width: 100%;
         position: fixed;
-        top: 0;
-        left: 0;
-        transition: transform 2s;
-        transform-origin: 0 100px;
+        transition: top .1s ease-in-out;
     }
 
-    .fixed .summary-pay {
+    .summary-fixed-visible {
+        left: 0;
+        top: 0;
+    }
+
+    .summary-fixed .summary-pay {
         margin-right: 25px;
     }
 
-    .not-fixed {
+    .summary-scrollable {
         margin-top: 25px;
         position: relative;
         max-width: 990px;
     }
    
     .summary {
-        z-index: 1;
         height: 23px;
         padding: 10px;
         font-family: 'Patua One', cursive;
@@ -150,13 +154,11 @@
     </style>
     <script type="text/javascript">
     (function() {
-        var offset = $('.summary.card').offset();
-
         $(window).scroll(function() {
-            $('.summary.card').addClass('fixed').removeClass('not-fixed');
+            $('.summary.summary-fixed').addClass('summary-fixed-visible');
             var scrollTop = $(document).scrollTop();
             if (scrollTop < 430) {
-                $('.summary.card').removeClass('fixed').addClass('not-fixed');
+                $('.summary.summary-fixed').removeClass('summary-fixed-visible');
             }
         });
     })();
@@ -184,7 +186,11 @@
         </div>
         <form target="_blank" action="/paypal" method="post">
             <template is="dom-bind">
-                <div class="centered-element card summary not-fixed">
+                <div class="centered-element card summary summary-fixed">
+                    <div class="summary-total">R$ {{total}}</div>
+                    <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay" />
+                </div>
+                <div class="centered-element card summary summary-scrollable">
                     <div class="summary-total">R$ {{total}}</div>
                     <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay" />
                 </div>
