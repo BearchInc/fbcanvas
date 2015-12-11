@@ -19,15 +19,24 @@
                 $('.summary.summary-fixed').removeClass('summary-fixed-visible');
             }
         });
-        var form = $( "#donate-form" );
-        form.submit(function( event ) {
-            var data = form.serialize();
-            $(".summary-pay").prop("disabled",true);
-            $(".summary-pay").prop("value", "Redirecionando...");
+
+        var form = $("#donate-form");
+        form.submit(function(event) {
             event.preventDefault();
-            $.post( "/paypal", data, function( response ) {
-                window.location = response;
-            });
+            
+            var summaryBtn = $(".summary-pay");
+            var totalAmount = document.querySelector('template[is=dom-bind]').total;
+            if (totalAmount > 0.00) {
+                var data = form.serialize();
+                summaryBtn.prop("disabled", true);
+                summaryBtn.prop("value", "Processando...");
+
+                $.post("/paypal", data, function(response) {
+                    window.open(response, '_blank');
+                    summaryBtn.prop("disabled", false);
+                    summaryBtn.prop("value", "Finalizar Doação");
+                });
+            }
         });
     });
     </script>
@@ -65,7 +74,7 @@
                 </div>
                 <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
                 <div class="centered-element">
-                <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
+                    <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
                 </div>
             </template>
         </form>
