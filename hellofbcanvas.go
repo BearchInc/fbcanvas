@@ -233,7 +233,7 @@ func newPaypalClient(c context.Context) (*paypal.Client, error) {
 	config := NewConfig(c)
 	clientID := config.PaypalClientId
 	secret := config.PaypalSecret
-	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
+	client := paypal.NewClient(clientID, secret, config.PaypalBase)
 
 	client.Client = urlfetch.Client(c)
 
