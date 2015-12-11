@@ -3,6 +3,7 @@ package main
 import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
 	"github.com/migore/paypal"
 )
 
@@ -57,16 +58,19 @@ type Config struct {
 }
 
 func NewConfig(context context.Context) Config {
+	appID := appengine.AppID(context)
+	log.Infof(context, "AppID: %v", appID)
+
 	if appengine.IsDevAppServer() {
 		return DevConfig()
 	}
 
 
-	if appengine.AppID(context) == ProductionAppID {
+	if appID == ProductionAppID {
 		return ProductionConfig()
 	}
 
-	if appengine.AppID(context) == StagingAppID {
+	if appID == StagingAppID {
 		return StagingConfig()
 	}
 
