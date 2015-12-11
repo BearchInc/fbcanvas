@@ -26,15 +26,14 @@
             
             var summaryBtn = $(".summary-pay");
             var totalAmount = document.querySelector('template[is=dom-bind]').total;
+
             if (totalAmount > 0.00) {
                 var data = form.serialize();
-                summaryBtn.prop("disabled", true);
-                summaryBtn.prop("value", "Processando...");
+                summaryBtn.prop("disabled", true).prop("value", "Processando...");
 
                 $.post("/paypal", data, function(response) {
-                    window.open(response, '_blank');
-                    summaryBtn.prop("disabled", false);
-                    summaryBtn.prop("value", "Finalizar Doação");
+                    window.open(response, '_top');
+                    summaryBtn.prop("disabled", false).prop("value", "Finalizar Doação");
                 });
             }
         });
