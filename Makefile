@@ -8,9 +8,9 @@ create-web-experience:
 	-H 'Content-Type:application/json' \
 	-H 'Authorization: Bearer A101.d_kV70FhGtfWMoJna_KeQA3Ok07ItTzuObC0rhC-owX4vpzWxNjmxHslyighD-Lr.POKhEfeyL6P7OUGIM9lgVMsWtMG' \
 	-d '{ \
-		"name": "Natal Renascer da Esperança 2015", \
+		"name": "Faça Uma Criança Feliz", \
 		"presentation": { \
-			"brand_name": "Natal Renascer da Esperança 2015", \
+			"brand_name": "Faça Uma Criança Feliz", \
 			"logo_image": "http://fb-canvas-dot-staging-api-getunseen.appspot.com/kids.jpg", \
 			"locale_code": "BR" \
 		}, \
@@ -30,9 +30,9 @@ update-web-experience:
 	-H 'Content-Type:application/json' \
 	-H 'Authorization: Bearer A101.d_kV70FhGtfWMoJna_KeQA3Ok07ItTzuObC0rhC-owX4vpzWxNjmxHslyighD-Lr.POKhEfeyL6P7OUGIM9lgVMsWtMG' \
 	-d '{ \
-		"name": "Natal Renascer da Esperança 2015", \
+		"name": "Faça Uma Criança Feliz", \
 		"presentation": { \
-			"brand_name": "Natal Renascer da Esperança 2015", \
+			"brand_name": "Faça Uma Criança Feliz", \
 			"logo_image": "http://fb-canvas-dot-staging-api-getunseen.appspot.com/kids.jpg", \
 			"locale_code": "BR" \
 		}, \
