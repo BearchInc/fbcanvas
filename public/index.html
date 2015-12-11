@@ -11,7 +11,7 @@
     <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
     <link rel="import" href="/components/wish-list.html">
     <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
         $(window).scroll(function() {
             $('.summary.summary-fixed').addClass('summary-fixed-visible');
             var scrollTop = $(document).scrollTop();
@@ -24,8 +24,7 @@
             var data = form.serialize();
             event.preventDefault();
             $.post( "/paypal", data, function( response ) {
-                debugger;
-                window.location = response.redirectURL;
+                window.location = response;
             });
         });
     });

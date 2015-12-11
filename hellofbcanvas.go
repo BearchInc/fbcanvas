@@ -127,8 +127,8 @@ func donate(w http.ResponseWriter, r *http.Request) {
 			approveUrl = link.Href
 		}
 	}
-
-	http.Redirect(w, r, approveUrl, http.StatusFound)
+    w.Write([]byte(approveUrl))
+//	http.Redirect(w, r, approveUrl, 200)
 }
 
 type Item struct {
