@@ -22,6 +22,8 @@
         var form = $( "#donate-form" );
         form.submit(function( event ) {
             var data = form.serialize();
+            $(".summary-pay").prop("disabled",true);
+            $(".summary-pay").prop("value", "Redirecionando...");
             event.preventDefault();
             $.post( "/paypal", data, function( response ) {
                 window.location = response;
