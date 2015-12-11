@@ -206,8 +206,8 @@ func sendEmail(email string, c context.Context) {
 	err := smtp.SendMail(
 		"smtp.gmail.com:587",
 		auth,
-		email,
-		[]string{"lisardo.kist@gmail.com"},
+		"ju.ferrari.doar@gmail.com",
+		[]string{email},
 		[]byte("Content-Type: text/plain; charset=\"utf-8\"\r\nSubject: Agredecimento\r\nMuito obrigada, farás muitos rostinhos sorrirem!"),
 	)
 
