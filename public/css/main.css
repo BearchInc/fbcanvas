@@ -54,13 +54,15 @@ body {
 }
 
 .card {
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     background-color: white;
-    border: 1px solid #d7d8de;
     border-radius: 3px;
 }
 
 .cover {
-    max-width: 1010px;
+    margin: 5px;
+    max-width: 993px;
 }
 
 .main-container {
@@ -71,14 +73,8 @@ body {
 .centered-element {
     width: 100%;
     position: relative;
-    margin: auto;
-}
-
-.donateButton:hover {
-    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477));
-    background: -moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
-    background-color: #fb9e25;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .summary-fixed {
@@ -101,9 +97,10 @@ body {
 }
 
 .summary-scrollable {
-    margin-top: 25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     position: relative;
-    max-width: 990px;
+    max-width: 973px;
 }
 
 .summary {
