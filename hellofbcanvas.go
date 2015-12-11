@@ -98,7 +98,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 			PaymentMethod: "paypal",
 		},
 		RedirectURLs: &paypal.RedirectURLs{
-			ReturnURL: config.BaseURL + "/paypal/success",
+			ReturnURL: config.RawBaseUrl + "/paypal/success",
 			CancelURL: config.BaseURL,
 		},
 		Transactions: []paypal.Transaction{
