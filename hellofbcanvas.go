@@ -62,6 +62,7 @@ func (this ShoppingCart) total() string {
 func donate(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	c := appengine.NewContext(r)
+	config := NewConfig(c)
 	client, err := newPaypalClient(c)
 
 	if err != nil {
@@ -92,12 +93,12 @@ func donate(w http.ResponseWriter, r *http.Request) {
 
 	payment := paypal.Payment{
 		Intent:              "sale",
-		ExperienceProfileID: "XP-3L6B-V2T3-RGFL-2JBZ",
+		ExperienceProfileID: config.ExperienceProfileId,
 		Payer: &paypal.Payer{
 			PaymentMethod: "paypal",
 		},
 		RedirectURLs: &paypal.RedirectURLs{
-			ReturnURL: "https://fb-canvas-dot-staging-api-getunseen.appspot.com/paypal/success",
+			ReturnURL: config.BaseURL + "/paypal/success",
 			CancelURL: "https://apps.facebook.com/bearchcanvas/",
 		},
 		Transactions: []paypal.Transaction{
@@ -229,8 +230,9 @@ func data(w http.ResponseWriter, r *http.Request) {
 }
 
 func newPaypalClient(c context.Context) (*paypal.Client, error) {
-	clientID := "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze"
-	secret := "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP"
+	config := NewConfig(c)
+	clientID := config.PaypalClientId
+	secret := config.PaypalSecret
 	client := paypal.NewClient(clientID, secret, paypal.APIBaseSandBox)
 
 	client.Client = urlfetch.Client(c)
