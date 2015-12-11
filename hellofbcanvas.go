@@ -197,7 +197,7 @@ func sendEmail(email string, c context.Context) {
 
 	auth := smtp.PlainAuth(
 		"",
-		"ju.ferrari.doar.com",
+		"ju.ferrari.doar",
 		"ygorbruxel",
 		"smtp.gmail.com",
 	)
@@ -207,8 +207,8 @@ func sendEmail(email string, c context.Context) {
 		"smtp.gmail.com:587",
 		auth,
 		email,
-		[]string{email},
-		[]byte("This is the email body."),
+		[]string{"lisardo.kist@gmail.com"},
+		[]byte("Content-Type: text/plain; charset=\"utf-8\"\r\nSubject: Agredecimento\r\nMuito obrigada, farás muitos rostinhos sorrirem!"),
 	)
 
 	if err != nil {
