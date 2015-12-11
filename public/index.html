@@ -11,7 +11,7 @@
     <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
     <link rel="import" href="/components/wish-list.html">
     <script type="text/javascript">
-    (function() {
+    $(function() {
         $(window).scroll(function() {
             $('.summary.summary-fixed').addClass('summary-fixed-visible');
             var scrollTop = $(document).scrollTop();
@@ -19,7 +19,16 @@
                 $('.summary.summary-fixed').removeClass('summary-fixed-visible');
             }
         });
-    })();
+        var form = $( "#donate-form" );
+        form.submit(function( event ) {
+            var data = form.serialize();
+            event.preventDefault();
+            $.post( "/paypal", data, function( response ) {
+                debugger;
+                window.location = response.redirectURL;
+            });
+        });
+    });
     </script>
 </head>
 
@@ -43,7 +52,7 @@
                 </p>
             </div>
         </div>
-        <form target="_blank" action="/paypal" method="post">
+        <form id="donate-form" action="/paypal" method="post">
             <template is="dom-bind">
                 <div class="centered-element card summary summary-fixed">
                     <div class="summary-total">R$ {{total}}</div>
