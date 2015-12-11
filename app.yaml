@@ -14,13 +14,9 @@ handlers:
   - url: /bower_components
     static_dir: public/js/bower_components
 
-  - url: /(.*\.jpg)$
+  - url: /(.*\.(jpg|png|css))$
     static_files: public/\1
-    upload: public/.*\.(jpg)$
-
-  - url: /(.*\.png)$
-    static_files: public/\1
-    upload: public/.*\.(png)$
+    upload: public/.*\.(jpg|png|css)$
 
   - url: /$
     static_files: public/index.html
