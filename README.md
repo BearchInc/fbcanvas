@@ -19,4 +19,5 @@
 Client ID: ATRub8NK5m1iZV1EFPcs2Ad_lcKx6A7yasQaRSj6wdjKEDPBpzZ1UZBUr4qQtxg45fG-zO8OlZ85fJx4
 Secret: EF4fNq7M9l_VztubdFCLsTsUnqGAoSj12WTnGWuguyQKisAC2aneCVNuXDAusmwE5EjDit67YYTMev3z
 2. Change the ExperienceProfileID when calling paypal api to XP-H5BE-78MM-5XMU-LZDX. This web-profile was created for Juliana live app already (info: https://developer.paypal.com/docs/api/#payment-experience)
-3. Follow the normal deploy process
+3. Change ReturnURL and CancelURL to production values in hellofbcanvas.go
+4. Follow the normal deploy process
