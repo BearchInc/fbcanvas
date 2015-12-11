@@ -99,7 +99,7 @@ func donate(w http.ResponseWriter, r *http.Request) {
 		},
 		RedirectURLs: &paypal.RedirectURLs{
 			ReturnURL: config.BaseURL + "/paypal/success",
-			CancelURL: "https://apps.facebook.com/helpmehelp/",
+			CancelURL: config.BaseURL,
 		},
 		Transactions: []paypal.Transaction{
 			paypal.Transaction{
@@ -167,8 +167,8 @@ func successPaypal(w http.ResponseWriter, r *http.Request) {
 
     name := url.QueryEscape(executePaymentResponse.Payer.PayerInfo.FirstName)
     amount := url.QueryEscape(executePaymentResponse.Transactions[0].Amount.Total)
-    http.Redirect(w, r, "http://apps.facebook.com/helpmehelp/thanks?n="+name+"&v="+amount, 301)
-
+	config := NewConfig(c)
+    http.Redirect(w, r, config.BaseURL + "/thanks?n=" + name + "&v=" + amount, 301)
 }
 
 
