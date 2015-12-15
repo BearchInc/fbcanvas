@@ -51,7 +51,7 @@ var products = []Product{
         Id:    "19",
         Name:  "Cachorro-Quente para uma criança",
         Price: "3.50",
-        Image:  "http://a57.foxnews.com/global.fncstatic.com/static/managed/img/876/493/etete5646456.jpg?ve=1&tl=1",
+        Image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hot_dog_with_mustard.png/640px-Hot_dog_with_mustard.png",
     },
 	Product{
 		Id:    "4",
