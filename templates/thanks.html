@@ -8,7 +8,12 @@
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-71419945-1', 'auto');
-        ga('send', 'pageview', '/thanks.html');
+        ga('send', {
+            hitType: 'pageview',
+            eventAction: 'donation complete',
+            eventValue: {{.Amount}},
+            page: '/thanks.html'
+        });
     </script>
     <style type="text/css">
         .thank {

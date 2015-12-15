@@ -21,6 +21,13 @@
 
         ga('create', 'UA-71419945-1', 'auto');
         ga('send', 'pageview', '/index.html');
+
+        ga('send', {
+            hitType: 'pageview',
+            eventAction: 'donation complete',
+            customProp: 'test123',
+        page: '/index.html'
+        });
     </script>
 
     <script type="text/javascript">
