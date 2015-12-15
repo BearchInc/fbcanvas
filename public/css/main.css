@@ -5,6 +5,64 @@ body {
     background-color: #e4e5e9;
 }
 
+.event-title {
+    top: 2px;
+    font-size: 24px;
+    position: relative;
+}
+
+.event-address {
+    top: 8px;
+    font-size: 16px;
+    position: relative;
+}
+
+.fa.fa-map-marker {
+    padding-right: 5px;
+    font-size: 16px;
+}
+
+.event-info * {
+    left: 70px;
+    color: #ffffff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, .9);
+}
+
+.event-info {
+    position: relative;
+    top: 175px;
+    left: 198px;
+}
+
+.event-date {
+    background-color: rgba(0,0,0,.15);
+    border: 2px solid #fff;
+    border-radius: 5px;
+    left: 12px;
+    padding: 7px 0 9px 0;
+    position: absolute;
+    width: 46px;
+}
+
+.event-date * {
+    color: #fff;
+    direction: ltr;
+    font-family: helvetica, arial, sans-serif;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.event-date .event-month {
+    font-size: 10px;
+    font-weight: 500;
+    margin: -2px auto 0 auto;
+}
+
+.event-date .event-day {
+    font-size: 20px;
+    padding-top: 5px;
+}
+
 .cover-image {
     height: 250px;
     background: url(/santa.jpg );
@@ -27,19 +85,10 @@ body {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .07);
     display: block;
     left: 23px;
-    margin-top: -140px;
+    margin-top: 110px;
     padding: 1px;
     position: absolute;
     height: 168px;
-}
-
-.profile-name {
-    position: absolute;
-    margin-top: -40px;
-    margin-left: 210px;
-    text-shadow: 0 0 3px rgba(0, 0, 0, .8);
-    color: #ffffff;
-    font-size: 24px;
 }
 
 .cover-text {
