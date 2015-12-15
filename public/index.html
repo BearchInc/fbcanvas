@@ -34,8 +34,6 @@
                 }
             });
 
-            var summaryBtn = $("::shadow .summary-pay");
-
             var form = $("#donate-form");
             form.submit(function (event) {
                 event.preventDefault();
@@ -51,6 +49,8 @@
                         window.open(response, '_top');
                         summaryBtn.prop("disabled", false).prop("value", "Finalizar Doação");
                     });
+                } else {
+                    alert('Selecione ao menos um item da lista antes de finalizar a doação.');
                 }
             });
         });
