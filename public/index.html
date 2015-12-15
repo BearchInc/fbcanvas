@@ -2,83 +2,103 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Bree+Serif|Patua+One|Crete+Round' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Bree+Serif|Patua+One|Crete+Round' rel='stylesheet'
+          type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="css" href="/css/main.css">
     <link rel="import" href="/bower_components/polymer/polymer.html">
     <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
     <link rel="import" href="/components/wish-list.html">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-71419945-1', 'auto');
+        ga('send', 'pageview', '/index.html');
+    </script>
+
     <script type="text/javascript">
-    $(document).ready(function() {
-        $(window).scroll(function() {
-            $('.summary.summary-fixed').addClass('summary-fixed-visible');
-            var scrollTop = $(document).scrollTop();
-            if (scrollTop < 430) {
-                $('.summary.summary-fixed').removeClass('summary-fixed-visible');
-            }
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                $('.summary.summary-fixed').addClass('summary-fixed-visible');
+                var scrollTop = $(document).scrollTop();
+                if (scrollTop < 430) {
+                    $('.summary.summary-fixed').removeClass('summary-fixed-visible');
+                }
+            });
+
+            var summaryBtn = $("::shadow .summary-pay");
+
+            var form = $("#donate-form");
+            form.submit(function (event) {
+                event.preventDefault();
+
+                var summaryBtn = $(".summary-pay");
+                var totalAmount = document.querySelector('template[is=dom-bind]').total;
+
+                if (totalAmount > 0.00) {
+                    var data = form.serialize();
+                    summaryBtn.prop("disabled", true).prop("value", "Processando...");
+
+                    $.post("/paypal", data, function (response) {
+                        window.open(response, '_top');
+                        summaryBtn.prop("disabled", false).prop("value", "Finalizar Doação");
+                    });
+                }
+            });
         });
-
-        var form = $("#donate-form");
-        form.submit(function(event) {
-            event.preventDefault();
-            
-            var summaryBtn = $(".summary-pay");
-            var totalAmount = document.querySelector('template[is=dom-bind]').total;
-
-            if (totalAmount > 0.00) {
-                var data = form.serialize();
-                summaryBtn.prop("disabled", true).prop("value", "Processando...");
-
-                $.post("/paypal", data, function(response) {
-                    window.open(response, '_top');
-                    summaryBtn.prop("disabled", false).prop("value", "Finalizar Doação");
-                });
-            }
-        });
-    });
     </script>
 </head>
 
 <body>
-    <div class="main-container centered-element">
-        <div class="centered-element cover card">
-            <div class="cover-image"></div>
-            <a class="profilePicThumb">
-                <img class="profilePic img" alt="Juliana Ferrari Teixeira" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/1234887_10204563118536969_8719067516525264908_n.jpg?oh=dfb842c2796f52a795c17e04057a76a2&amp;oe=572062FB&amp;__gda__=1458158393_d88a9ae36c97fdfd3e740b7045cc56c7">
-            </a>
-            <div class="profile-name">Juliana Ferrari Teixeira</div>
-            <div class="cover-text">
-                <p>
-                    E est&aacute; chegando mais um Natal, tempo de renova&ccedil;&atilde;o, esperan&ccedil;a, uni&atilde;o e SOLIDARIEDADE! Mais uma festa de Natal est&aacute; chegando tamb&eacute;m , e esse ano contemplaremos 400 crian&ccedil;as crian&ccedil;as do Bairro Humait&aacute;.
-                </p>
-                <p>
-                    Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de presente, neste ano teremos lanches e atra&ccedil;&otilde;es para tornarmos um dia inesquec&iacute;vel para cada uma dessas crian&ccedil;as.
-                </p>
-                <p>
-                    Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400 crian&ccedil;as sorriam neste dia!
-                </p>
-            </div>
+<div class="main-container centered-element">
+    <div class="centered-element cover card">
+        <div class="cover-image"></div>
+        <a class="profilePicThumb">
+            <img class="profilePic img" alt="Juliana Ferrari Teixeira"
+                 src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/1234887_10204563118536969_8719067516525264908_n.jpg?oh=dfb842c2796f52a795c17e04057a76a2&amp;oe=572062FB&amp;__gda__=1458158393_d88a9ae36c97fdfd3e740b7045cc56c7">
+        </a>
+        <div class="profile-name">Juliana Ferrari Teixeira</div>
+        <div class="cover-text">
+            <p>
+                E est&aacute; chegando mais um Natal, tempo de renova&ccedil;&atilde;o, esperan&ccedil;a, uni&atilde;o e
+                SOLIDARIEDADE! Mais uma festa de Natal est&aacute; chegando tamb&eacute;m , e esse ano contemplaremos
+                400 crian&ccedil;as crian&ccedil;as do Bairro Humait&aacute;.
+            </p>
+            <p>
+                Al&eacute;m da tradicional visita do Papai Noel com seu saco recheado de presente, neste ano teremos
+                lanches e atra&ccedil;&otilde;es para tornarmos um dia inesquec&iacute;vel para cada uma dessas crian&ccedil;as.
+            </p>
+            <p>
+                Para isto, contamos com a colabora&ccedil;&atilde;o de voc&ecirc;s para conseguirmos fazer com que 400
+                crian&ccedil;as sorriam neste dia!
+            </p>
         </div>
-        <form id="donate-form" action="/paypal" method="post">
-            <template is="dom-bind">
-                <div class="centered-element card summary summary-fixed">
-                    <div class="summary-total">R$ {{total}}</div>
-                    <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay" />
-                </div>
-                <div class="centered-element card summary summary-scrollable">
-                    <div class="summary-total">R$ {{total}}</div>
-                    <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay" />
-                </div>
-                <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
-                <div class="centered-element">
-                    <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
-                </div>
-            </template>
-        </form>
     </div>
+    <form id="donate-form" action="/paypal" method="post">
+        <template is="dom-bind">
+            <div class="centered-element card summary summary-fixed">
+                <div class="summary-total">R$ {{total}}</div>
+                <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay"/>
+            </div>
+            <div class="centered-element card summary summary-scrollable">
+                <div class="summary-total">R$ {{total}}</div>
+                <input type="submit" value="Finalizar Doa&#231;&#227;o" class="summary-pay"/>
+            </div>
+            <iron-ajax url="/items" last-response="{{data}}" auto></iron-ajax>
+            <div class="centered-element">
+                <wish-list items="[[data]]" total-amount="{{total}}"></wish-list>
+            </div>
+        </template>
+    </form>
+</div>
 </body>
 <script>
 </script>

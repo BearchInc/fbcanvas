@@ -28,7 +28,7 @@ func ProductionConfig() Config {
 func StagingConfig() Config {
 	config := Config {
 		RawBaseUrl: "http://helpmehelp-dot-staging-api-getunseen.appspot.com",
-		BaseURL: "https://apps.facebook.com/bearchcanvas",
+		BaseURL: "https://apps.facebook.com/helpmehelp-staging",
 		PaypalClientId: "AUGtRDBDZek5V-TWQZ4GCALZNfRTbObh5UjxVthXScB90X9W3iDrez2VEVZSFG4qFKDfMsnqPmx7tBze",
 		PaypalSecret: "EKLTvvNjEHZHvcrH2vmdMjNBHg4BO_8S4YBr2MFMSCfFFy9rz-TdFvk9lMe595Xd-y1UMJErjudYhiRP",
 		PaypalBase: paypal.APIBaseSandBox,
