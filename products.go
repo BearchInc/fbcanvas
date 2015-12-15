@@ -47,6 +47,12 @@ var products = []Product{
 		Price: "650.00",
 		Image: "http://a57.foxnews.com/global.fncstatic.com/static/managed/img/876/493/etete5646456.jpg?ve=1&tl=1",
 	},
+    Product{
+        Id:    "19",
+        Name:  "Cachorro-Quente para uma criança",
+        Price: "3.50",
+        Image:  "http://a57.foxnews.com/global.fncstatic.com/static/managed/img/876/493/etete5646456.jpg?ve=1&tl=1",
+    },
 	Product{
 		Id:    "4",
 		Name:  "Kit para Chá de Cozinha",
