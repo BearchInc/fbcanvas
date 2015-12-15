@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <script src="//connect.facebook.net/en_US/sdk.js"></script>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Bree+Serif|Patua+One|Crete+Round' rel='stylesheet'
           type='text/css'>
@@ -46,6 +45,7 @@
                     summaryBtn.prop("disabled", true).prop("value", "Processando...");
 
                     $.post("/paypal", data, function (response) {
+                        ga('send', 'donate', '/index.html');
                         window.open(response, '_top');
                         summaryBtn.prop("disabled", false).prop("value", "Finalizar Doação");
                     });
